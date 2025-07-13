@@ -59,9 +59,9 @@ border:none; cursor:pointer;
   <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" alt="maklo" class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />  
   </div>  
  
- <input id="username" type="text" placeholder="WaysModzz"  
+ <input id="username" type="text" placeholder="Username your account"  
 class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />  
- <input id="password" type="password" placeholder="WaysModzz"  
+ <input id="password" type="password" placeholder="Password"  
 class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />  
  <div class="space-y-[2px]"> <button id="loginBtn" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md">Login</button>  
 <a href="https://wa.me/6289620004252" class="w-full block text-center py-2 bg-green-600 hover:bg-green-700 text-white rounded-md"> Contact Rull</a>  
@@ -110,7 +110,10 @@ class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />
 </div>
 </div> 
 <script>  
-const usersUrl = 'https://raw.githubusercontent.com/primroserey/gatau/main/server.json';  
+const localUser = {
+  username: 'WaysModzz',
+  password: 'WaysModzz'
+};
   
 const loginView = document.getElementById('loginView');  
 const mainView = document.getElementById('mainView');  
