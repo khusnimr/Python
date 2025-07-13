@@ -140,13 +140,6 @@
       animation: fadeInOut 3.8s ease forwards;
       z-index: 10;
     }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, 20px); }
-      10% { opacity: 1; transform: translate(-50%, 0); }
-      90% { opacity: 1; }
-      100% { opacity: 0; transform: translate(-50%, 20px); }
-    }
  input,button,label { transition:all .3s ease-in-out }  
  input:focus {  
 transform:scale(1.02);  
@@ -176,6 +169,12 @@ font-weight:600; font-size:.875rem;
 border:none; cursor:pointer;  
  }  
  #supportBtn:hover { background:#00F3F1 }  
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translate(-50%, 20px); }
+      10% { opacity: 1; transform: translate(-50%, 0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, 20px); }
+    }
   </style>  
   </head>  
 <body class="min-h-screen flex items-center justify-center text-gray-800 dark:text-white"> <div class="relative glow">  
@@ -236,7 +235,7 @@ class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />
  <a a href="https://t.me/xwyways" id="supportBtn">Support</a>  
 </div>
 </div> 
-<script>  
+<script> 
 // GANTI DENGAN DATABASE LOCAL 1 AKUN
 const localUser = {
   username: 'WaysModzz',
