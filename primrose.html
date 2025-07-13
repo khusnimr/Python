@@ -1,66 +1,84 @@
-<!-- index.html --><!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rull86 Premium</title>
-  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #0f172a, #1e293b);
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-    }
-    .glow {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-    }
-    .btn {
-      background: #4f46e5;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      margin-top: 1.5rem;
-      text-decoration: none;
-      display: inline-block;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #4338ca;
-    }
-    .credit {
-      margin-top: 2rem;
-      font-size: 0.75rem;
-      color: #94a3b8;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rull86 Bugs App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="glow">
-    <h1 class="text-2xl font-bold mb-4">🚀 Akses Premium Rull86</h1>
-    <p class="text-sm text-gray-300 mb-6">
-      Untuk menggunakan tools WhatsApp Bug, silakan beli akses terlebih dahulu.
-    </p>
-    <a class="btn" href="https://wa.me/6289620004252?text=Halo%20mau%20akses%20Premium%20Rull86" target="_blank">
-      🔐 Buy Access via WhatsApp
-    </a>
-    <br/>
-    <a class="btn mt-3" href="login.html">
-      🔑 Login Setelah Premium
-    </a>
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+
+  <div id="loginView" class="w-full max-w-sm p-6 bg-gray-800 rounded-lg shadow-lg">
+    <h2 class="text-center text-2xl font-bold mb-4">Login Premium</h2>
+    <input id="username" placeholder="Username" class="w-full mb-3 px-4 py-2 rounded bg-gray-700 border border-gray-600" />
+    <input id="password" type="password" placeholder="Password" class="w-full mb-3 px-4 py-2 rounded bg-gray-700 border border-gray-600" />
+    <button id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded">Login</button>
+    <p id="status" class="text-center mt-2 text-red-400 text-sm h-5"></p>
+    <a href="https://wa.me/6289620004252?text=Mau%20akses%20premium" target="_blank" class="block text-center text-green-400 mt-3">Buy Access</a>
   </div>
-  <div class="credit">© 2025 Rull86 Bugs App</div>
+
+  <div id="mainView" class="hidden text-center">
+    <h1 class="text-2xl font-bold mb-4">Halo, <span id="welcomeUser"></span></h1>
+    <p>Fitur premium telah aktif.</p>
+    <button id="logoutBtn" class="mt-4 bg-red-500 px-4 py-2 rounded">Logout</button>
+  </div>
+
+  <script>
+    const usersUrl = 'https://raw.githubusercontent.com/primroserey/gatau/main/server.json';
+
+    const loginView = document.getElementById('loginView');
+    const mainView = document.getElementById('mainView');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const statusEl = document.getElementById('status');
+    const welcomeUser = document.getElementById('welcomeUser');
+
+    async function fetchUsers() {
+      try {
+        const res = await fetch(usersUrl);
+        return await res.json();
+      } catch {
+        statusEl.textContent = '⚠️ Gagal ambil database.';
+        return [];
+      }
+    }
+
+    async function checkCredentials(u, p) {
+      const users = await fetchUsers();
+      return users.find(user => user.username === u && user.password === p);
+    }
+
+    loginBtn.onclick = async () => {
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value.trim();
+      if (!u || !p) return statusEl.textContent = '❗ Isi semua field';
+
+      loginBtn.disabled = true;
+      const valid = await checkCredentials(u, p);
+      loginBtn.disabled = false;
+
+      if (valid) {
+        localStorage.setItem('username', u);
+        showMain(u);
+      } else {
+        statusEl.textContent = '❌ Username atau password salah';
+      }
+    };
+
+    logoutBtn.onclick = () => {
+      localStorage.removeItem('username');
+      location.reload();
+    };
+
+    function showMain(username) {
+      loginView.classList.add('hidden');
+      mainView.classList.remove('hidden');
+      welcomeUser.textContent = username;
+    }
+
+    // Auto login jika sudah tersimpan
+    const savedUser = localStorage.getItem('username');
+    if (savedUser) showMain(savedUser);
+  </script>
 </body>
-</html>
+  </html>
