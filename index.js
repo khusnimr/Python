@@ -200,14 +200,14 @@ app.get('/', (req, res) => {
 });
 
 const server = app.listen(PORT, () => {
-    console.log(`Server running → http://backendapiserver.aryastore.biz.id:${PORT}`);
+    console.log(`Server running → http://priv.waysmodzzsite.my.id:${PORT}`);
 });
 
 server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
         console.error(`Port ${PORT} in use. Retrying...`);
         const newPort = Math.floor(Math.random() * (65535 - 1024) + 1024);
-        app.listen(newPort, () => console.log(`Server running → http://backendapiserver.aryastore.biz.id:${newPort}`));
+        app.listen(newPort, () => console.log(`Server running → http://priv.waysmodzzsite.my.id:${newPort}`));
     } else {
         console.error('Server error:', err.message);
     }
