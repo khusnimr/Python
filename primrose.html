@@ -1,0 +1,239 @@
+<!DOCTYPE html>  
+<html lang="id">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width,initial-scale=1" />  
+  <title>primrose bugs app</title> 
+  <script src="https://cdn.tailwindcss.com"></script> <style>  
+ body {  
+background: url('https://primrosereyy.nichesite.org/uploads/685f52519c864.jpg') no-repeat center/cover fixed;  
+ }  
+ .glow::before {  
+content:'';  
+position:absolute; inset:0; margin:auto;  
+width:260px; height:260px;  
+background:radial-gradient(circle at center,#6366f1 0%,transparent 70%);  
+filter:blur(60px); opacity:.55; z-index:-1;  
+ }  
+ .lamp {  
+position:absolute; top:-14px; left:50%; translate:-50% 0;  
+width:18px; height:18px; border-radius:9999px;  
+background:#3b82f6; box-shadow:0 0 18px 8px #3b82f6aa;  
+ }  
+ input,button,label { transition:all .3s ease-in-out }  
+ input:focus {  
+transform:scale(1.02);  
+outline:none;  
+box-shadow:0 0 0 3px rgb(99 102 241 / .5);  
+ }  
+ button:hover { transform:scale(1.02) }  
+ button:active { transform:scale(.98) }  
+ #status { transition:color .3s,opacity .3s; min-height:1.25rem }  
+ #credit {  
+font-size:.8rem; color:#3b82f6;  
+text-align:center; margin-bottom:.4rem; font-weight:500;  
+user-select:none;  
+ }  
+ #logoutBtn {  
+background:#ef4444; color:#fff;  
+padding:.4rem .8rem; border-radius:.375rem;  
+font-weight:600; font-size:.875rem;  
+border:none; cursor:pointer;  
+ }  
+ #logoutBtn:hover { background:#dc2626 }  
+
+#supportBtn {  
+background:#00F3F1; color:#fff;  
+padding:.4rem .8rem; border-radius:.375rem;  
+font-weight:600; font-size:.875rem;  
+border:none; cursor:pointer;  
+ }  
+ #supportBtn:hover { background:#00F3F1 }  
+  </style>  
+  </head>  
+<body class="min-h-screen flex items-center justify-center text-gray-800 dark:text-white"> <div class="relative glow">  
+ <div id="card" class="w-[22rem] sm:w-[26rem] p-8 bg-white/90 dark:bg-gray-800/80 backdrop-blur rounded-lg shadow-2xl">  <div id="loginView">  
+<div class="text-center w-full px-4 py-2 rounded-md border border-blue-500 bg-gray-100 text-gray-800"> LOGIN Rull86  BUGS APP</div>  
+ 
+  <div class="flex justify-center items-center py-10 bg-transparent">  
+  <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" alt="maklo" class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />  
+  </div>  
+ 
+ <input id="username" type="text" placeholder="Username your account"  
+class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />  
+ <input id="password" type="password" placeholder="Password"  
+class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />  
+ <div class="space-y-[2px]"> <button id="loginBtn" class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md">Login</button>  
+<a href="https://wa.me/6289620004252" class="w-full block text-center py-2 bg-green-600 hover:bg-green-700 text-white rounded-md"> Contact Rull</a>  
+ </div>  
+ </div>  
+ 
+  <div id="mainView" class="hidden">  
+ <div class="flex justify-between items-center mb-6">  
+ 
+<span id="welcomeUser" class="text-lg font-semibold text-indigo-600"></span>  
+<button id="logoutBtn">Logout</button>  
+ </div>  
+
+ <form id="bugForm" class="space-y-4" onsubmit="return false;">  
+ 
+ <div class="text-center w-full px-4 py-2 rounded-md border border-blue-500 bg-gray-100 text-gray-800">Rull86  Console </div>  
+ 
+  <div class="flex justify-center items-center py-10 bg-transparent">  
+  <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" alt="maklo" class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />  
+  </div>  
+ 
+ <form id="bugForm" class="space-y-4" onsubmit="return false;">  
+<input id="phone" type="text" placeholder="Masukkan nomor WA (628xxxx)"  
+  class="w-full px-4 py-2 rounded-md border bg-gray-100 border-gray-300"/>  
+
+  <button type="button" id="btnDelay"  
+ class="w-full py-2 bg-red-500 hover:bg-red-600 text-white rounded-md">  
+ Delay Only  
+  </button>  
+<div class="flex justify-between gap-3">  
+  <button type="button" id="btnAndroid"  
+ class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">  
+ Crash Android
+  </button>  
+  <button type="button" id="btnIOS"  
+ class="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md">  
+ Crash iOS  
+  </button>  
+</div>  
+
+<p id="status" class="text-center text-sm h-5"></p>  
+ </form>  
+  </div>  
+ <div id="credit">© 2025 Rull86 Bugs App</div>  
+ <a a href="https://wa.me/6289620004252" id="supportBtn">Support</a>  
+</div>
+</div> 
+<script>  
+const usersUrl = 'https://raw.githubusercontent.com/primroserey/gatau/main/server.json';  
+  
+const loginView = document.getElementById('loginView');  
+const mainView = document.getElementById('mainView');  
+const usernameInput = document.getElementById('username');  
+const passwordInput = document.getElementById('password');  
+const loginBtn = document.getElementById('loginBtn');  
+const logoutBtn = document.getElementById('logoutBtn');  
+const welcomeUser = document.getElementById('welcomeUser');  
+  
+const phoneInput = document.getElementById('phone');  
+const statusEl = document.getElementById('status');  
+  
+if (matchMedia('(prefers-color-scheme: dark)').matches)  
+  document.body.classList.add('dark');  
+  
+async function fetchUsers() {
+  try {
+    const res = await fetch(usersUrl);
+    if (!res.ok) throw new Error('Gagal mengambil data user');
+    const data = await res.json();
+    console.log('Data user terambil:', data); // Tambahkan ini buat debug
+    return data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+  
+async function checkCredentials(user, pass) {
+  const usersData = await fetchUsers();
+  if (!usersData) return false;
+  
+  return usersData.some(u => u.username === user && u.password === pass);
+}
+  
+function showMain(user) {  
+  welcomeUser.textContent = `Welcome, ${user}`;  
+  loginView.classList.add('hidden');  
+  mainView.classList.remove('hidden');  
+}  
+  
+loginBtn.addEventListener('click', async () => {  
+  const u = usernameInput.value.trim();  
+  const p = passwordInput.value.trim();  
+  if (!u || !p) {  
+ alert('Isi semua kolom');  
+ return;  
+  }  
+  loginBtn.disabled = true;  
+  const ok = await checkCredentials(u, p);  
+  loginBtn.disabled = false;  
+  if (!ok) {  
+ alert('Username atau password salah');  
+ return;  
+  }  
+  localStorage.setItem('username', u);  
+  showMain(u);  
+});  
+  
+logoutBtn.onclick = () => {  
+  localStorage.removeItem('username');  
+  location.reload();  
+};  
+  
+window.onload = () => {  
+  const saved = localStorage.getItem('username');  
+  if (saved) showMain(saved);  
+};  
+  
+ async function sendForcecall() {  
+const phone = phoneInput.value.trim();  
+if (!phone) {  
+  statusEl.textContent = '❌ Nomor belum diisi';  
+  return;  
+}  
+statusEl.textContent = '⏳ Mengirim Forcecall...';  
+try {  
+  const res = await fetch(`/api/bug/forceall?target=${encodeURIComponent(phone)}`);  
+  const data = await res.json();  
+  statusEl.textContent = data.status ? '✅ Forcecall berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;  
+} catch (err) {  
+  console.error(err);  
+  statusEl.textContent = '🚫 Gagal terhubung ke API';  
+}  
+ }  
+  
+  async function sendDelay() {  
+const phone = phoneInput.value.trim();  
+if (!phone) {  
+  statusEl.textContent = '❌ Nomor belum diisi';  
+  return;  
+}  
+statusEl.textContent = '⏳ Mengirim Forcecall...';  
+try {  
+  const res = await fetch(`/api/bug/delay?target=${encodeURIComponent(phone)}`);  
+  const data = await res.json();  
+  statusEl.textContent = data.status ? '✅ Forcecall berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;  
+} catch (err) {  
+  console.error(err);  
+  statusEl.textContent = '🚫 Gagal terhubung ke API';  
+}  
+ }
+  
+ async function sendCarousels() {  
+const phone = phoneInput.value.trim();  
+if (!phone) {  
+  statusEl.textContent = '❌ Nomor belum diisi';  
+  return;  
+}  
+statusEl.textContent = '⏳ Mengirim Forcecall...';  
+try {  
+  const res = await fetch(`/api/bug/ios?target=${encodeURIComponent(phone)}`);  
+  const data = await res.json();  
+  statusEl.textContent = data.status ? '✅ Forcecall berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;  
+} catch (err) {  
+  console.error(err);  
+  statusEl.textContent = '🚫 Gagal terhubung ke API';  
+}  
+}  
+  
+ document.getElementById('btnDelay').onclick = sendDelay;  
+ document.getElementById('btnAndroid').onclick = sendForcecall;  
+ document.getElementById('btnIOS').onclick = sendCarousels;  
+  </script> 
+</body>  
+</html>  
