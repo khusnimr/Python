@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>primrose bugs app</title>
+  <title>Rull86 Bugs App</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -21,8 +21,8 @@
       opacity: .55;
       z-index: -1;
     }
-    input, button, label {
-      transition: all .3s ease-in-out
+    input, button {
+      transition: all 0.3s ease-in-out;
     }
     input:focus {
       transform: scale(1.02);
@@ -30,27 +30,12 @@
       box-shadow: 0 0 0 3px rgb(99 102 241 / .5);
     }
     button:hover {
-      transform: scale(1.02)
-    }
-    button:active {
-      transform: scale(.98)
-    }
-    #status {
-      transition: color .3s, opacity .3s;
-      min-height: 1.25rem
-    }
-    #credit {
-      font-size: .8rem;
-      color: #3b82f6;
-      text-align: center;
-      margin-bottom: .4rem;
-      font-weight: 500;
-      user-select: none;
+      transform: scale(1.02);
     }
     #logoutBtn {
       background: #ef4444;
-      color: #fff;
-      padding: .4rem .8rem;
+      color: white;
+      padding: 0.4rem 0.8rem;
       border-radius: .375rem;
       font-weight: 600;
       font-size: .875rem;
@@ -58,12 +43,12 @@
       cursor: pointer;
     }
     #logoutBtn:hover {
-      background: #dc2626
+      background: #dc2626;
     }
     #supportBtn {
       background: #00F3F1;
-      color: #fff;
-      padding: .4rem .8rem;
+      color: white;
+      padding: 0.4rem 0.8rem;
       border-radius: .375rem;
       font-weight: 600;
       font-size: .875rem;
@@ -71,7 +56,14 @@
       cursor: pointer;
     }
     #supportBtn:hover {
-      background: #00F3F1
+      background: #00e3e1;
+    }
+    #credit {
+      font-size: .8rem;
+      color: #3b82f6;
+      text-align: center;
+      margin-bottom: .4rem;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -81,20 +73,21 @@
 
       <!-- LOGIN VIEW -->
       <div id="loginView">
-        <div class="text-center w-full px-4 py-2 rounded-md border border-blue-500 bg-gray-100 text-gray-800">LOGIN Rull86 BUGS APP</div>
-        <div class="flex justify-center items-center py-10 bg-transparent">
-          <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" alt="maklo" class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />
+        <div class="text-center w-full px-4 py-2 rounded-md border border-blue-500 bg-gray-100 text-gray-800">
+          LOGIN Rull86 BUGS APP
+        </div>
+        <div class="flex justify-center items-center py-10">
+          <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />
         </div>
         <input id="username" type="text" placeholder="Username your account"
           class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />
         <input id="password" type="password" placeholder="Password"
           class="w-full mb-3 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />
-        <div class="space-y-[2px]">
+        <div class="space-y-2">
           <button id="loginBtn"
             class="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md">Login</button>
           <a href="https://wa.me/6289620004252"
-            class="w-full block text-center py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">Contact
-            Rull</a>
+            class="w-full block text-center py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">Contact Rull</a>
         </div>
       </div>
 
@@ -105,27 +98,28 @@
           <button id="logoutBtn">Logout</button>
         </div>
 
-        <div class="text-center w-full px-4 py-2 rounded-md border border-blue-500 bg-gray-100 text-gray-800">Rull86 Console</div>
+        <div class="text-center w-full px-4 py-2 rounded-md border border-blue-500 bg-gray-100 text-gray-800">
+          Rull86 Console
+        </div>
 
-        <div class="flex justify-center items-center py-10 bg-transparent">
-          <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" alt="maklo"
-            class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />
+        <div class="flex justify-center items-center py-10">
+          <img src="https://primrosereyy.nichesite.org/uploads/6865ddc0c37d1.jpg" class="w-40 h-40 object-cover rounded-full border-4 border-blue-500 shadow-lg" />
         </div>
 
         <input id="phone" type="text" placeholder="Masukkan nomor WA (628xxxx)"
-          class="w-full px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />
+          class="w-full mb-4 px-4 py-2 rounded-md border bg-gray-100 border-gray-300" />
 
         <button type="button" id="btnDelay"
-          class="w-full py-2 bg-red-500 hover:bg-red-600 text-white rounded-md">Delay Only</button>
+          class="w-full py-2 bg-red-500 hover:bg-red-600 text-white rounded-md mb-2">Delay Only</button>
 
-        <div class="flex justify-between gap-3">
+        <div class="flex justify-between gap-3 mb-2">
           <button type="button" id="btnAndroid"
             class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">Crash Android</button>
           <button type="button" id="btnIOS"
             class="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md">Crash iOS</button>
         </div>
 
-        <p id="status" class="text-center text-sm h-5 mt-4"></p>
+        <p id="status" class="text-center text-sm h-5"></p>
       </div>
 
       <div id="credit">© 2025 Rull86 Bugs App</div>
@@ -133,14 +127,13 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIN -->
   <script>
     const usersUrl = [
   {
     "username": "waysmodzz",
     "password": "waysmodzz"
   }
-];
+]
 
     const loginView = document.getElementById('loginView');
     const mainView = document.getElementById('mainView');
@@ -162,14 +155,13 @@
         return await res.json();
       } catch (e) {
         console.error(e);
-        return null;
+        return [];
       }
     }
 
     async function checkCredentials(user, pass) {
-      const usersData = await fetchUsers();
-      if (!usersData) return false;
-      return usersData.some(u => u.username === user && u.password === pass);
+      const users = await fetchUsers();
+      return users.some(u => u.username === user && u.password === pass);
     }
 
     function showMain(user) {
@@ -181,11 +173,13 @@
     loginBtn.addEventListener('click', async () => {
       const u = usernameInput.value.trim();
       const p = passwordInput.value.trim();
-      if (!u || !p) return alert('Isi semua kolom!');
+      if (!u || !p) return alert('Isi semua kolom');
+
       loginBtn.disabled = true;
-      const ok = await checkCredentials(u, p);
+      const valid = await checkCredentials(u, p);
       loginBtn.disabled = false;
-      if (!ok) return alert('Username atau Password salah!');
+
+      if (!valid) return alert('Username atau password salah');
       localStorage.setItem('username', u);
       showMain(u);
     });
@@ -200,6 +194,7 @@
       if (saved) showMain(saved);
     };
 
+    // API Calls (Dummy)
     async function sendRequest(path) {
       const phone = phoneInput.value.trim();
       if (!phone) return statusEl.textContent = '❌ Nomor belum diisi';
@@ -207,10 +202,10 @@
       try {
         const res = await fetch(`/api/bug/${path}?target=${encodeURIComponent(phone)}`);
         const data = await res.json();
-        statusEl.textContent = data.status ? '✅ Berhasil!' : `⚠️ Gagal: ${data.message || 'Unknown'}`;
+        statusEl.textContent = data.status ? '✅ Berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;
       } catch (err) {
         console.error(err);
-        statusEl.textContent = '🚫 Gagal koneksi ke API';
+        statusEl.textContent = '🚫 Gagal terhubung ke API';
       }
     }
 
