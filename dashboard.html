@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard ZexDown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #4f46e5;
+      border-radius: 8px;
+    }
+    .btn {
+      background: crimson;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+    .content {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div id="userWelcome">Welcome!</div>
+    <button class="btn" onclick="logout()">Logout</button>
+  </div>
+  <div class="content">
+    <h2>🔥 ZexDown Bug Panel</h2>
+    <p>Fitur-fitur akan ditambahkan di sini...</p>
+  </div>  <script>
+    const user = localStorage.getItem("username");
+    if (!user) location.href = "login.html";
+    else document.getElementById("userWelcome").textContent = `Welcome, ${user}`;
+
+    function logout() {
+      localStorage.removeItem("username");
+      location.href = "login.html";
+    }
+  </script></body>
+</html>
