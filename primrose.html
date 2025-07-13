@@ -37,74 +37,130 @@
   </div>
 
   <script>
-    const usersUrl = "https://raw.githubusercontent.com/khusnimr/Website-WaysModzz/refs/heads/main/users.json";
+    const usersUrl = 'https://raw.githubusercontent.com/primroserey/gatau/main/server.json';  
+  
+const loginView = document.getElementById('loginView');  
+const mainView = document.getElementById('mainView');  
+const usernameInput = document.getElementById('username');  
+const passwordInput = document.getElementById('password');  
+const loginBtn = document.getElementById('loginBtn');  
+const logoutBtn = document.getElementById('logoutBtn');  
+const welcomeUser = document.getElementById('welcomeUser');  
+  
+const phoneInput = document.getElementById('phone');  
+const statusEl = document.getElementById('status');  
+  
+if (matchMedia('(prefers-color-scheme: dark)').matches)  
+  document.body.classList.add('dark');  
+  
+async function fetchUsers() {
+  try {
+    const res = await fetch(usersUrl);
+    if (!res.ok) throw new Error('Gagal mengambil data user');
+    const data = await res.json();
+    console.log('Data user terambil:', data); // Tambahkan ini buat debug
+    return data;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
+  
+async function checkCredentials(user, pass) {
+  const usersData = await fetchUsers();
+  if (!usersData) return false;
+  
+  return usersData.some(u => u.username === user && u.password === pass);
+}
 
-    const loginView = document.getElementById("loginView");
-    const mainView = document.getElementById("mainView");
-    const loginBtn = document.getElementById("loginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-    const welcomeUser = document.getElementById("welcomeUser");
-    const statusEl = document.getElementById("status");
-
-    // Ambil data user dari server.json
-    async function checkCredentials(user, pass) {
-      try {
-        const res = await fetch(usersUrl);
-        const data = await res.json();
-        return data.some(u => u.username === user && u.password === pass);
-      } catch (err) {
-        console.error("Fetch error:", err);
-        return false;
-      }
-    }
-
-    // Login logic
-    loginBtn.onclick = async () => {
-      const user = usernameInput.value.trim();
-      const pass = passwordInput.value.trim();
-
-      if (!user || !pass) {
-        statusEl.textContent = "❗ Username & password wajib diisi!";
-        return;
-      }
-
-      loginBtn.disabled = true;
-      statusEl.textContent = "⏳ Memproses login...";
-
-      const valid = await checkCredentials(user, pass);
-      loginBtn.disabled = false;
-
-      if (valid) {
-        localStorage.setItem("username", user);
-        showMain(user);
-      } else {
-        statusEl.textContent = "❌ Username atau password salah!";
-      }
-    };
-
-    // Tampilkan halaman utama
-    function showMain(user) {
-      welcomeUser.textContent = `Welcome, ${user}`;
-      loginView.classList.add("hidden");
-      mainView.classList.remove("hidden");
-    }
-
-    // Logout
-    logoutBtn.onclick = () => {
-      localStorage.removeItem("username");
-      location.reload();
-    };
-
-    // Cek sesi login sebelumnya
-    window.onload = () => {
-      const savedUser = localStorage.getItem("username");
-      if (savedUser) {
-        showMain(savedUser);
-      }
-    };
-  </script>
-
-</body>
-</html>
+    function showMain(user) {  
+  welcomeUser.textContent = `Welcome, ${user}`;  
+  loginView.classList.add('hidden');  
+  mainView.classList.remove('hidden');  
+}  
+  
+loginBtn.addEventListener('click', async () => {  
+  const u = usernameInput.value.trim();  
+  const p = passwordInput.value.trim();  
+  if (!u || !p) {  
+ alert('Isi semua kolom');  
+ return;  
+  }  
+  loginBtn.disabled = true;  
+  const ok = await checkCredentials(u, p);  
+  loginBtn.disabled = false;  
+  if (!ok) {  
+ alert('Username atau password salah');  
+ return;  
+  }  
+  localStorage.setItem('username', u);  
+  showMain(u);  
+});  
+  
+logoutBtn.onclick = () => {  
+  localStorage.removeItem('username');  
+  location.reload();  
+};  
+  
+window.onload = () => {  
+  const saved = localStorage.getItem('username');  
+  if (saved) showMain(saved);  
+};  
+  
+ async function sendForcecall() {  
+const phone = phoneInput.value.trim();  
+if (!phone) {  
+  statusEl.textContent = '❌ Nomor belum diisi';  
+  return;  
+}  
+statusEl.textContent = '⏳ Mengirim Forcecall...';  
+try {  
+  const res = await fetch(`/api/bug/forceall?target=${encodeURIComponent(phone)}`);  
+  const data = await res.json();  
+  statusEl.textContent = data.status ? '✅ Forcecall berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;  
+} catch (err) {  
+  console.error(err);  
+  statusEl.textContent = '🚫 Gagal terhubung ke API';  
+}  
+ }  
+  
+  async function sendDelay() {  
+const phone = phoneInput.value.trim();  
+if (!phone) {  
+  statusEl.textContent = '❌ Nomor belum diisi';  
+  return;  
+}  
+statusEl.textContent = '⏳ Mengirim Forcecall...';  
+try {  
+  const res = await fetch(`/api/bug/delay?target=${encodeURIComponent(phone)}`);  
+  const data = await res.json();  
+  statusEl.textContent = data.status ? '✅ Forcecall berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;  
+} catch (err) {  
+  console.error(err);  
+  statusEl.textContent = '🚫 Gagal terhubung ke API';  
+}  
+ }
+  
+ async function sendCarousels() {  
+const phone = phoneInput.value.trim();  
+if (!phone) {  
+  statusEl.textContent = '❌ Nomor belum diisi';  
+  return;  
+}  
+statusEl.textContent = '⏳ Mengirim Forcecall...';  
+try {  
+  const res = await fetch(`/api/bug/ios?target=${encodeURIComponent(phone)}`);  
+  const data = await res.json();  
+  statusEl.textContent = data.status ? '✅ Forcecall berhasil!' : `⚠️ Gagal: ${data.message || data.error || 'Unknown'}`;  
+} catch (err) {  
+  console.error(err);  
+  statusEl.textContent = '🚫 Gagal terhubung ke API';  
+}  
+}  
+  
+ document.getElementById('btnDelay').onclick = sendDelay;  
+ document.getElementById('btnAndroid').onclick = sendForcecall;  
+ document.getElementById('btnIOS').onclick = sendCarousels;  
+  </script> 
+</body>  
+</html>  
