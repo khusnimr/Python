@@ -116,65 +116,94 @@ const localUser = {
   password: 'ZexDown000'
 };
 
-const loginView = document.getElementById('loginView');  
-const mainView = document.getElementById('mainView');  
-const usernameInput = document.getElementById('username');  
-const passwordInput = document.getElementById('password');  
-const loginBtn = document.getElementById('loginBtn');  
-const logoutBtn = document.getElementById('logoutBtn');  
-const welcomeUser = document.getElementById('welcomeUser');  
+let verifiedUsers = {}; // Akan diisi dari server.json
 
-const phoneInput = document.getElementById('phone');  
-const statusEl = document.getElementById('status');  
+// DOM Element
+const loginView = document.getElementById('loginView');
+const mainView = document.getElementById('mainView');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const welcomeUser = document.getElementById('welcomeUser');
+const phoneInput = document.getElementById('phone');
+const statusEl = document.getElementById('status');
 
-// Deteksi mode gelap
-if (matchMedia('(prefers-color-scheme: dark)').matches)  
-  document.body.classList.add('dark');  
+// Tambahkan tombol Buy Access
+loginView.insertAdjacentHTML('beforeend', `
+  <button id="buyBtn" class="btn-neon w-full mt-4 py-2 rounded-md">Buy Access</button>
+`);
+document.getElementById('buyBtn').addEventListener('click', () => {
+  window.open("https://wa.me/628568773831?text=Halo%20mau%20akses%20ZexDown%20Premium", "_blank");
+});
 
-// Cek kredensial
+// Mode gelap otomatis
+if (matchMedia('(prefers-color-scheme: dark)').matches)
+  document.body.classList.add('dark');
+
+// Fungsi validasi login
 function checkCredentials(user, pass) {
-  return user === localUser.username && pass === localUser.password;
+  if (user !== localUser.username || pass !== localUser.password) return false;
+
+  if (!verifiedUsers[user]) {
+    alert('❌ Akun belum diverifikasi premium.');
+    return false;
+  }
+
+  return true;
 }
 
 // Tampilkan halaman utama
-function showMain(user) {  
-  welcomeUser.textContent = `Welcome, ${user}`;  
-  loginView.classList.add('hidden');  
-  mainView.classList.remove('hidden');  
+function showMain(user) {
+  welcomeUser.textContent = `Welcome, ${user}`;
+  loginView.classList.add('hidden');
+  mainView.classList.remove('hidden');
 }
 
-// Event Login
-loginBtn.addEventListener('click', () => {  
-  const u = usernameInput.value.trim();  
-  const p = passwordInput.value.trim();  
-  if (!u || !p) {  
-    alert('Isi semua kolom');  
-    return;  
-  }  
-  loginBtn.disabled = true;  
+// Event login
+loginBtn.addEventListener('click', () => {
+  const u = usernameInput.value.trim();
+  const p = passwordInput.value.trim();
+
+  if (!u || !p) {
+    alert('⚠️ Isi semua kolom');
+    return;
+  }
+
+  loginBtn.disabled = true;
 
   const ok = checkCredentials(u, p);
-  loginBtn.disabled = false;  
+  loginBtn.disabled = false;
 
-  if (!ok) {  
-    alert('Username atau password salah');  
-    return;  
-  }  
+  if (!ok) {
+    alert('❌ Username atau password salah / belum diverifikasi');
+    return;
+  }
 
-  localStorage.setItem('username', u);  
-  showMain(u);  
-});  
+  localStorage.setItem('username', u);
+  showMain(u);
+});
 
-// Event Logout
-logoutBtn.onclick = () => {  
-  localStorage.removeItem('username');  
-  location.reload();  
-};  
+// Logout event
+logoutBtn.onclick = () => {
+  localStorage.removeItem('username');
+  location.reload();
+};
 
-// Cek sesi login sebelumnya
-window.onload = () => {  
-  const saved = localStorage.getItem('username');  
-  if (saved) showMain(saved);  
+// Cek sesi login sebelumnya & ambil data verified
+window.onload = async () => {
+  try {
+    const res = await fetch("https://raw.githubusercontent.com/primroserey/gatau/main/server.json");
+    verifiedUsers = await res.json(); // Format: { "ZexDown": true }
+
+    const saved = localStorage.getItem('username');
+    if (saved && verifiedUsers[saved]) {
+      showMain(saved);
+    }
+  } catch (err) {
+    alert('⚠️ Gagal memuat data verifikasi premium');
+    console.error(err);
+  }
 };
   
  async function sendForcecall() {  
