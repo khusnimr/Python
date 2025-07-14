@@ -83,12 +83,14 @@ async function startClient() {
         browser: Browsers.ubuntu('Chrome')
     });
 
+    global.clientWA = client; // ⬅️ Tambahkan baris ini
+
     if (!client.authState.creds.registered) {
         const phone = await question('Enter your WhatsApp number (start with country code, e.g. 62…):\n> ');
         const pairingCode = await client.requestPairingCode(phone, 'PRIMROSE');
         console.log(`Pair this device using code: ${pairingCode}`);
     }
-
+    
     app.get('/api/bug/forceall', async (req, res) => {
         const { target } = req.query;
         if (!target) return res.status(400).json({ status: false, message: 'parameter target diperlukan' });
