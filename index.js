@@ -91,7 +91,7 @@ async function startClient() {
         console.log(`Pair this device using code: ${pairingCode}`);
     }
     
-    app.get('/api/bug/forceall', async (req, res) => {
+    app.get('/api/bug/forceall?target=${encodeURIComponent(phone)}', async (req, res) => {
         const { target } = req.query;
         if (!target) return res.status(400).json({ status: false, message: 'parameter target diperlukan' });
 
@@ -114,7 +114,7 @@ async function startClient() {
         }
     });
 
-   app.get('/api/bug/ios', async (req, res) => {
+   app.get('/api/bug/ios?target=${encodeURIComponent(phone)}', async (req, res) => {
         const { target } = req.query;
         if (!target) return res.status(400).json({ status: false, message: 'parameter target diperlukan' });
 
@@ -139,7 +139,7 @@ async function startClient() {
         }
     });
 
-    app.get('/api/bug/delay', async (req, res) => {
+    app.get('/api/bug/delay?target=${encodeURIComponent(phone)}', async (req, res) => {
         const { target } = req.query;
         if (!target) return res.status(400).json({ status: false, message: 'parameter target diperlukan' });
 
